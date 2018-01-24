@@ -1,0 +1,32 @@
+.picture-container {
+    border: 1px solid black;
+    border-radius: 30px;
+    width: 70%;
+    margin: 40px auto;
+    padding: 30px;
+    ul {
+        list-style-type: none;
+        margin: auto;
+        width: 90%;
+    }
+}
+
+.picture-group {
+    display: inline-block;
+    margin: 10px;
+}
+
+.picture-details {
+    display: inline-block;
+    text-align: center;
+    img {
+        width: 150px;
+        height: 150px;
+        display: block;
+        margin: 10px auto 10px auto;
+    }
+}
+
+.picture-buttons {
+    margin-bottom: 20px;
+}

@@ -1,0 +1,46 @@
+.folder-container {
+    border: 1px solid black;
+    border-radius: 30px;
+    width: 70%;
+    margin: 40px auto;
+    padding: 30px;
+    ul {
+        list-style-type: none;
+        margin: auto;
+        width: 90%;
+    }
+    li {
+        display: inline-block;
+        width: 33%;
+        height: 600px;
+    }
+}
+
+.folder-details-link {
+    cursor: pointer;
+}
+
+.folder-group {
+    display: inline-block;
+    margin: 10px;
+}
+
+.folder-details {
+    text-align: center;
+    img {
+        width: 300px;
+        height: 300px;
+        display: block;
+        margin: 10px auto 10px auto;
+    }
+    .folder-description {
+        height: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis; 
+
+    }
+}
+
+.folder-buttons {
+    margin-bottom: 20px;
+}

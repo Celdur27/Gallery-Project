@@ -1,0 +1,70 @@
+<div class="picture-container">
+  <button type="button" class="btn btn-success" (click)="goBack()"><span class="glyphicon glyphicon-arrow-left"></span> Powrót</button>
+  <button type="button" class="btn btn-success" (click)="openNewPictureModal()"><span class="glyphicon glyphicon-plus"></span> Dodaj obraz</button>
+  <ul>
+    <li *ngFor="let picture of pictureList" class="panel-group picture-group">
+      <div class="panel panel-default picture-details">
+        <div class="panel-body">
+          <img src={{picture.url}} />
+          <h3><strong>{{ picture.name }}</strong></h3>
+          <label>{{ picture.description }}</label>
+        </div>
+        <div class="picture-buttons">
+          <button type="button" class="btn btn-danger" (click)="removePicture(picture.id)">
+            <span class="glyphicon glyphicon-trash"></span> Usuń 
+          </button>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<kendo-dialog title="Nowy obraz" *ngIf="newPictureModalOpened" (close)="closeNewPictureModal()" [minWidth]="250" [width]="450">
+  <form>
+    <label>Nazwa: </label>
+    <input type="text" class="form-control" id="pictureName" name="pictureName" [(ngModel)]="newPicture.name" #pictureName="ngModel" required>
+    <label>Opis: </label>
+    <textarea rows="4" cols="50" class="form-control" id="pictureDescription" name="pictureDescription" [(ngModel)]="newPicture.description" #pictureDescription="ngModel" required></textarea>
+    <input class="form-check-input" type="radio" name="mode" [value]="true" [(ngModel)]="fileUploadType">
+    <label>
+        Adres obrazu z internetu.
+    </label>
+    <br>
+    <input class="form-check-input" type="radio" name="mode" [value]="false" [(ngModel)]="fileUploadType">
+    <label>
+        Dodaj plik z dysku.
+    </label>
+    <div [ngSwitch]='fileUploadType'>
+      <div *ngSwitchCase="true">
+          <label>Adres url: </label>
+          <input type="text" class="form-control" id="pictureUrl" name="pictureUrl" [(ngModel)]="newPicture.url" #pictureUrl="ngModel" required> 
+      </div>
+      <div *ngSwitchCase="false">
+        <label>Załaduj plik: </label>
+        <kendo-upload
+          [autoUpload]="false"
+          [saveUrl]="uploadSaveUrl"
+          [removeUrl]="uploadRemoveUrl"
+          [restrictions]="uploadRestrictions"
+          (select)="selectEventHandler($event)"
+          (clear)="clearEventHandler($event)"
+          (remove)="removeEventHandler($event)"
+          (complete)="completeEventHandler($event)">
+        </kendo-upload>
+      </div>
+    </div>
+  </form>
+  <kendo-dialog-actions>
+      <button kendoButton (click)="closeNewPictureModal()">Wyjdź</button>
+      <button kendoButton (click)="addPicture()" primary="true">Zapisz</button>
+  </kendo-dialog-actions>
+</kendo-dialog>
+
+<kendo-dialog title="Błąd" *ngIf="removeErrorModalOpened" (close)="closeRemoveErrorModal()" [minWidth]="250" [width]="450">
+  <p>
+    Nie można usunąć obrazka, ponieważ jest on używany jako miniatura dla aktualnego folderu. 
+  </p>
+  <kendo-dialog-actions>
+      <button kendoButton (click)="closeRemoveErrorModal()" primary="true">OK</button>
+  </kendo-dialog-actions>
+</kendo-dialog>

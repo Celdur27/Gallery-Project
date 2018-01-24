@@ -1,0 +1,74 @@
+<div class="folder-container">
+  <button type="button" class="btn btn-success" (click)="openNewFolderModal()"><span class="glyphicon glyphicon-plus"></span> Dodaj folder</button>
+  <ul>
+    <li *ngFor="let folder of folderList" class="panel-group">
+      <div class="folder-group">
+        <div class="panel panel-default">
+            <div class="folder-details">
+              <div class="panel-heading">
+                <div class="folder-details-link">
+                  <h3 routerLink="/folders/{{folder.id}}"><strong>Nazwa:</strong> {{ folder.name }}</h3>
+                </div>
+              </div>
+              <div class="panel-body">
+                <img [src]="getMiniature(folder.miniatureID)" />
+                <div class="folder-description"><strong>Opis:</strong> {{ folder.description }}</div>
+              </div>
+              <div class="folder-buttons">
+                <button type="button" class="btn btn-primary" (click)="openEditFolderModal(folder)">
+                  <span class="glyphicon glyphicon-edit"></span> Edytuj 
+                </button>
+                <button type="button" class="btn btn-danger" (click)="removeFolder(folder.id)">
+                  <span class="glyphicon glyphicon-trash"></span> Usuń 
+                </button>
+              </div>
+            </div>
+          </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!-- modals definiton --> 
+<kendo-dialog title="Nowy folder" *ngIf="newFolderModalOpened" (close)="closeNewFolderModal()" [minWidth]="250" [width]="450">
+  <form>
+    <label>Nazwa: </label>
+    <input type="text" class="form-control" id="folderName" name="folderName" [(ngModel)]="newFolder.name" #folderName="ngModel" required>
+    <label>Opis: </label>
+    <textarea rows="4" cols="50" class="form-control" id="folderDescription" name="folderDescription" [(ngModel)]="newFolder.description" #folderDescription="ngModel" required></textarea>
+    <label>Miniatura: </label>
+    <select class="form-control" id="folderMiniature" name="folderMiniature" [(ngModel)]="newFolder.miniatureID" #folderMiniature="ngModel" required>
+      <option [value]=0></option>
+    </select> 
+  </form>
+  <kendo-dialog-actions>
+      <button kendoButton (click)="closeNewFolderModal()">Wyjdź</button>
+      <button kendoButton (click)="addFolder()" primary="true">Zapisz</button>
+  </kendo-dialog-actions>
+</kendo-dialog>
+
+<kendo-dialog title="Nowy folder" *ngIf="editFolderModalOpened" (close)="closeEditFolderModal()" [minWidth]="250" [width]="450">
+  <form>
+    <label>Nazwa: </label>
+    <input type="text" class="form-control" id="folderName" name="folderName" [(ngModel)]="modifiedFolder.name" #folderName="ngModel" required>
+    <label>Opis: </label>
+    <textarea rows="4" cols="50" class="form-control" id="folderDescription" name="folderDescription" [(ngModel)]="modifiedFolder.description" #folderDescription="ngModel" required></textarea>
+    <label>Miniatura: </label>
+    <select class="form-control" id="folderMiniature" name="folderMiniature" [(ngModel)]="modifiedFolder.miniatureID" #folderMiniature="ngModel" required>
+      <option *ngFor="let pic of pictureListPerFolder" [value]="pic.id">{{ pic.name }}</option>
+    </select> 
+  </form>
+  <kendo-dialog-actions>
+      <button kendoButton (click)="closeEditFolderModal()">Wyjdź</button>
+      <button kendoButton (click)="editFolder()" primary="true">Zapisz</button>
+  </kendo-dialog-actions>
+</kendo-dialog>
+
+<kendo-dialog title="Błąd" *ngIf="removeErrorModalOpened" (close)="closeRemoveErrorModal()" [minWidth]="250" [width]="450">
+  <p>
+    Nie można usunąć folderu, ponieważ zawarte są w nim obrazy. 
+  </p>
+  <kendo-dialog-actions>
+      <button kendoButton (click)="closeRemoveErrorModal()" primary="true">OK</button>
+  </kendo-dialog-actions>
+</kendo-dialog>
