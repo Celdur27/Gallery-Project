@@ -14,4 +14,4 @@ Dodatkowo wykorzystałem dwie kontrolki z KendoUI: Dialog oraz FileUpload.
 
 ## Database
 
-Bazę należy przywrócić na serwerze w wersji SQL Server 14.0.1000.169. Jeśli nie uda się przywrócić 
+Bazę należy przywrócić na serwerze w wersji SQL Server 14.0.1000.169. Jeśli nie uda się przywrócić należy utworzyć nową. Model bazy danych został dodany w pliku database model.jpg. 
