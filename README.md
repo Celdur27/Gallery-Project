@@ -11,3 +11,7 @@ Aby aplikacja zadziałała należy z konsoli wywołać polecenie
 npm install
 ```
 Dodatkowo wykorzystałem dwie kontrolki z KendoUI: Dialog oraz FileUpload. 
+
+## Database
+
+Bazę należy przywrócić na serwerze w wersji SQL Server 14.0.1000.169. Jeśli nie uda się przywrócić 
